@@ -2,6 +2,7 @@ import os
 from flask import Blueprint, render_template, request, redirect, flash
 from website import ALLOWED_IMAGE_EXTENSION, MAXIMUM_MEMORY
 from werkzeug.utils import secure_filename
+from .static.machine_learning.generate_caption import get_image, get_features, get_caption
 
 views = Blueprint('views', __name__, template_folder='templates')
 
@@ -42,6 +43,12 @@ def home():
                 filename = secure_filename(image.filename)
                 image.save(os.path.join('images', filename))
                 flash('Image uploaded successfully.', category='succes')
+
+                image = get_image('images')
+                features = get_features(image)
+                caption = get_caption(features)
+
+                print(caption)
 
             return redirect(request.url)
 
