@@ -1,0 +1,9 @@
+
+#content {
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+    border: 2px solid black;
+    margin-top: 40px;
+    cursor: crosshair;
+}

@@ -26,9 +26,9 @@ def get_features(image):
 
 
 def get_caption(features):
-    idx_to_word = np.load('website\static\machine_learning\idx_to_word.npy', allow_pickle=True)
-    word_to_idx = np.load('website\static\machine_learning\word_to_idx.npy', allow_pickle=True)
-    model = tf.keras.models.load_model('website\static\machine_learning\small_train_set')
+    idx_to_word = np.load('website\static\machine_learning\image_caption_model\idx_to_word.npy', allow_pickle=True)
+    word_to_idx = np.load('website\static\machine_learning\image_caption_model\word_to_idx.npy', allow_pickle=True)
+    model = tf.keras.models.load_model('website\static\machine_learning\image_caption_model\small_train_set')
 
     in_text = '<startseq>'
     max_len = 16

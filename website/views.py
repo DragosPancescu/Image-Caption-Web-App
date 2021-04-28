@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, render_template, request, redirect, flash
 from website import ALLOWED_IMAGE_EXTENSION, MAXIMUM_MEMORY
 from werkzeug.utils import secure_filename
-from .static.machine_learning.generate_caption import get_image, get_features, get_caption
+from .static.machine_learning.image_caption_model.generate_caption import get_image, get_features, get_caption
 
 views = Blueprint('views', __name__, template_folder='templates')
 
@@ -22,9 +22,14 @@ def check_filesize(filesize):
         return False
     return True
 
+def delete_image():
+    path = 'images'
+    for image in os.listdir(path):
+        os.remove(os.path.join(path, image))
 
-@views.route('/', methods = ['GET', 'POST'])
-def home():
+
+@views.route('/image_caption', methods = ['GET', 'POST'])
+def image_caption():
     if request.method == 'POST':
         if request.files:
             image = request.files['image']
@@ -49,7 +54,18 @@ def home():
                 caption = get_caption(features)
 
                 print(caption)
+                delete_image()
 
             return redirect(request.url)
 
+    return render_template('image_caption.html')
+
+
+@views.route('/', methods = ['GET'])
+def home():
     return render_template('home.html')
+
+
+@views.route('/number_rec', methods = ['GET', 'POST'])
+def number_rec():
+    return render_template('number_rec.html')
